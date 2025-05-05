@@ -1,9 +1,7 @@
 package fr.epita.bank.launcher;
 
 import fr.epita.bank.AccountService;
-import fr.epita.bank.datamodel.Customer;
-import fr.epita.bank.datamodel.InvestmentAccount;
-import fr.epita.bank.datamodel.SavingsAccount;
+import fr.epita.bank.datamodel.*;
 
 public class Main {
 
@@ -29,6 +27,23 @@ public class Main {
         AccountService.withdraw(savingsAccount, requestedMoney);
 
         // the customer buys 5 stocks of gold (unit price: 100€) using his investment account
+        Stock goldStock = new Stock(100.0, "GOLD");
+        StockOrder stockOrder = new StockOrder(
+                goldStock.getCurrentUnitPrice(),
+                5,
+                0.0,
+                goldStock,
+                investmentAccount
+        );
+
+        double grossAmount = stockOrder.getCurrentUnitPrice() * stockOrder.getQuantity();
+        Double commission = grossAmount * 0.05;
+        stockOrder.setCommission(commission);
+        double netAmount = grossAmount + commission;
+        investmentAccount.setBalance(savingsAccount.getBalance() - netAmount);
+
+
+
         // the commission is 5% of all transactions
 
         //display the final states of each of the involved instances
