@@ -1,8 +1,13 @@
 package fr.epita.bank;
 
 import fr.epita.bank.datamodel.Account;
+import fr.epita.bank.datamodel.InvestmentAccount;
+import fr.epita.bank.datamodel.Stock;
+import fr.epita.bank.datamodel.StockOrder;
 
 public class AccountService {
+
+    public static final double TRANSACTION_COMMISSION = 0.05;
 
     /**
      * the "withdraw" method is in charge of operating a withdrawal on an account
@@ -25,5 +30,22 @@ public class AccountService {
             account.setBalance(balance - amount);
         }
         return amount;
+    }
+
+    public static StockOrder buyStocks(InvestmentAccount account, Stock stock, Integer quantity ){
+        StockOrder stockOrder = new StockOrder(
+                stock.getCurrentUnitPrice(),
+                quantity,
+                0.0,
+                stock,
+                account
+        );
+
+        double grossAmount = stockOrder.getCurrentUnitPrice() * stockOrder.getQuantity();
+        Double commission = grossAmount * TRANSACTION_COMMISSION;
+        stockOrder.setCommission(commission);
+        double netAmount = grossAmount + commission;
+        account.setBalance(account.getBalance() - netAmount);
+        return stockOrder;
     }
 }

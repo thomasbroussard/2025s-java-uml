@@ -28,26 +28,12 @@ public class Main {
 
         // the customer buys 5 stocks of gold (unit price: 100€) using his investment account
         Stock goldStock = new Stock(100.0, "GOLD");
-        StockOrder stockOrder = new StockOrder(
-                goldStock.getCurrentUnitPrice(),
-                5,
-                0.0,
-                goldStock,
-                investmentAccount
-        );
 
-        double grossAmount = stockOrder.getCurrentUnitPrice() * stockOrder.getQuantity();
-        Double commission = grossAmount * 0.05;
-        stockOrder.setCommission(commission);
-        double netAmount = grossAmount + commission;
-        investmentAccount.setBalance(savingsAccount.getBalance() - netAmount);
-
-
-
+        StockOrder stockOrder = AccountService.buyStocks(investmentAccount, goldStock, 5);
         // the commission is 5% of all transactions
 
         //display the final states of each of the involved instances
-
+        System.out.println(savingsAccount);
 
 
 

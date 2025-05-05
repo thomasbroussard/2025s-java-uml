@@ -6,4 +6,12 @@ public class InvestmentAccount extends Account {
         this.balance = balance;
         this.customer = customer;
     }
+
+    @Override
+    public String toString() {
+        return "InvestmentAccount{" +
+                "balance=" + balance +
+                ", customer=" + customer +
+                '}';
+    }
 }
