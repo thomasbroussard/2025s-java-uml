@@ -1,6 +1,8 @@
 package fr.epita.bank.launcher;
 
+import fr.epita.bank.AccountService;
 import fr.epita.bank.datamodel.Customer;
+import fr.epita.bank.datamodel.InvestmentAccount;
 import fr.epita.bank.datamodel.SavingsAccount;
 
 public class Main {
@@ -18,9 +20,14 @@ public class Main {
 
 
         // 1 investment account: initial balance : 1000€
+        InvestmentAccount investmentAccount = new InvestmentAccount(1000.0, someCustomer);
 
 
         // the customer withdraws 200€ from the savings
+        Double requestedMoney = 200.0;
+
+        AccountService.withdraw(savingsAccount, requestedMoney);
+
         // the customer buys 5 stocks of gold (unit price: 100€) using his investment account
         // the commission is 5% of all transactions
 
