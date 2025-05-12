@@ -2,10 +2,11 @@ package fr.epita.bank.datamodel;
 
 
 public class Customer {
+    private int id;
     private String name;
     private String address;
 
-    public Customer(String name, String address){
+    public Customer(int id, String name, String address){
         this.address = address;
         this.name = name;
     }
@@ -26,5 +27,14 @@ public class Customer {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                '}';
     }
 }

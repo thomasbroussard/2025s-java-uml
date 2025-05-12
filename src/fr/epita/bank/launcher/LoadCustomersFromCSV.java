@@ -8,19 +8,17 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoadFromCSV {
+public class LoadCustomersFromCSV {
 
     public static void main(String[] args) throws IOException {
 
         List<String> lines = Files.readAllLines(Path.of("customers.csv"));
 
         List<Customer> customers = new ArrayList<>();
+        lines.remove(0);
         for (String line : lines){
             String[] parts = line.split(",");
-            parts[0]; //id
-            parts[1]; //name
-            parts[2]; //address
-            Customer customer = new Customer();
+            Customer customer = new Customer(Integer.parseInt(parts[0]), parts[1], parts[2]);
             customers.add(customer);
         }
         System.out.println(customers);

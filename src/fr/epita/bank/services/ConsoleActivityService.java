@@ -43,7 +43,7 @@ public class ConsoleActivityService {
     public  Customer createCustomer() {
         String userName = readFromConsole("please enter a user name");
         String userAddress = readFromConsole("please enter the user address" );
-        Customer someCustomer = new Customer(userName, userAddress);
+        Customer someCustomer = new Customer(1 ,userName, userAddress); // either generate it or ask user about it
         return someCustomer;
     }
 
