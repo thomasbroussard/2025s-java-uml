@@ -1,4 +1,4 @@
-package fr.epita.bank;
+package fr.epita.bank.services;
 
 import fr.epita.bank.datamodel.Account;
 import fr.epita.bank.datamodel.InvestmentAccount;

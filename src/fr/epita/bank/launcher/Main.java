@@ -1,20 +1,34 @@
 package fr.epita.bank.launcher;
 
-import fr.epita.bank.AccountService;
+import fr.epita.bank.services.AccountService;
 import fr.epita.bank.datamodel.*;
+
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
         System.out.println("welcome to this bank application");
+        Scanner consoleReader = new Scanner(System.in);
+
+        System.out.println("please enter a user name");
+        String userName = consoleReader.nextLine();
+        System.out.println("please enter the user address");
+        String userAddress = consoleReader.nextLine();
+        Customer someCustomer = new Customer(userName, userAddress);
+
+
+        /*
         Customer someCustomer = new Customer("thomas", "Paris");
 
         someCustomer.setName("thomas");
         someCustomer.setAddress("Paris");
-
+*/
         // I would like to have a small scenario where customer creates 2 accounts
         // 1 savings account: initial balance: 500€, interest rate is 3%
-        SavingsAccount savingsAccount = new SavingsAccount(500.0, someCustomer, 0.03);
+        System.out.println("please enter the balance for the savings:");
+        String rawBalance = consoleReader.nextLine();
+        SavingsAccount savingsAccount = new SavingsAccount(Double.parseDouble(rawBalance), someCustomer, 0.03);
 
 
         // 1 investment account: initial balance : 1000€
