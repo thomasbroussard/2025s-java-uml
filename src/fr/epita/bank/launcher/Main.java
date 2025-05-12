@@ -26,7 +26,7 @@ public class Main {
 */
         // I would like to have a small scenario where customer creates 2 accounts
         // 1 savings account: initial balance: 500€, interest rate is 3%
-        System.out.println("please enter the balance for the savings:");
+        System.out.println("please enter the balance for the savings:"); //test change
         String rawBalance = consoleReader.nextLine();
         SavingsAccount savingsAccount = new SavingsAccount(Double.parseDouble(rawBalance), someCustomer, 0.03);
 
