@@ -11,11 +11,8 @@ public class Main {
         System.out.println("welcome to this bank application");
         Scanner consoleReader = new Scanner(System.in);
 
-        System.out.println("please enter a user name");
-        String userName = consoleReader.nextLine();
-        System.out.println("please enter the user address");
-        String userAddress = consoleReader.nextLine();
-        Customer someCustomer = new Customer(userName, userAddress);
+        //customer creation
+        Customer someCustomer = createCustomer(consoleReader);
 
 
         /*
@@ -26,17 +23,18 @@ public class Main {
 */
         // I would like to have a small scenario where customer creates 2 accounts
         // 1 savings account: initial balance: 500€, interest rate is 3%
-        System.out.println("please enter the balance for the savings:"); //test change - test 2
-        String rawBalance = consoleReader.nextLine();
-        SavingsAccount savingsAccount = new SavingsAccount(Double.parseDouble(rawBalance), someCustomer, 0.03);
+        Double balance = readDoubleFromConsole("please enter the balance for the savings:", consoleReader);
+        Double interestRate = readDoubleFromConsole("please enter the interest rate", consoleReader);
+        SavingsAccount savingsAccount = new SavingsAccount(balance, someCustomer, interestRate);
 
 
         // 1 investment account: initial balance : 1000€
-        InvestmentAccount investmentAccount = new InvestmentAccount(1000.0, someCustomer);
+        double investBalance = readDoubleFromConsole("input a balance for the investment account", consoleReader);
+        InvestmentAccount investmentAccount = new InvestmentAccount(investBalance, someCustomer);
 
 
         // the customer withdraws 200€ from the savings
-        Double requestedMoney = 200.0;
+        Double requestedMoney = readDoubleFromConsole("what amount would you like to withdraw", consoleReader);
 
         AccountService.withdraw(savingsAccount, requestedMoney);
 
@@ -51,5 +49,22 @@ public class Main {
 
 
 
+    }
+
+    private static Customer createCustomer(Scanner consoleReader) {
+        String userName = readFromConsole("please enter a user name", consoleReader);
+        String userAddress = readFromConsole("please enter the user address", consoleReader);
+        Customer someCustomer = new Customer(userName, userAddress);
+        return someCustomer;
+    }
+
+    private static String readFromConsole(String prompt, Scanner consoleReader) {
+        System.out.println(prompt);
+        String userResponse = consoleReader.nextLine();
+        return userResponse;
+    }
+
+    private static Double readDoubleFromConsole(String prompt, Scanner consoleReader) {
+       return Double.parseDouble(readFromConsole(prompt, consoleReader));
     }
 }
