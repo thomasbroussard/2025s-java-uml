@@ -43,6 +43,32 @@ public class LoadDataFromCSV {
 
         Map<Integer, Account> accounts = CSVService.loadAccounts(customers);
 
+        Collection<Account> values = accounts.values();
+        Map<Integer, Double> totalBalancePerCustomer = new HashMap<>();
+        for (Account account : values) {
+            int id = account.getCustomer().getId();
+            Double v = totalBalancePerCustomer.get(id);
+            if (v == null) {
+                totalBalancePerCustomer.put(id, account.getBalance());
+            }else{
+                totalBalancePerCustomer.put(id, v + account.getBalance());
+            }
+        }
+
+        System.out.println(totalBalancePerCustomer);
+
+        CategoryChart chart1 = new CategoryChartBuilder()
+                .width(800)
+                .height(600)
+                .title("chart")
+                .xAxisTitle("Mean")
+                .yAxisTitle("Count")
+                .build();
+
+        chart1.addSeries("principal", new ArrayList<>(totalBalancePerCustomer.keySet()), new ArrayList<>(totalBalancePerCustomer.values()));
+
+        new SwingWrapper(chart1).displayChart();
+
 
 
     }
