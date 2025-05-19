@@ -8,6 +8,7 @@ public class ConsoleActivityService {
 
 
     private Scanner consoleReader;
+    private Integer idGen = 0;
 
 
     public ConsoleActivityService(Scanner input){
@@ -29,14 +30,14 @@ public class ConsoleActivityService {
 
     public InvestmentAccount createInvestmentAccount(Customer someCustomer) {
         double investBalance = readDoubleFromConsole("input a balance for the investment account");
-        InvestmentAccount investmentAccount = new InvestmentAccount(investBalance, someCustomer);
+        InvestmentAccount investmentAccount = new InvestmentAccount(idGen ++, investBalance, someCustomer);
         return investmentAccount;
     }
 
     public SavingsAccount createSavingsAccount(Customer someCustomer) {
         Double balance = readDoubleFromConsole("please enter the balance for the savings:");
         Double interestRate = readDoubleFromConsole("please enter the interest rate");
-        SavingsAccount savingsAccount = new SavingsAccount(balance, someCustomer, interestRate);
+        SavingsAccount savingsAccount = new SavingsAccount(idGen ++, balance, someCustomer, interestRate);
         return savingsAccount;
     }
 

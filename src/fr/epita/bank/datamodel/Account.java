@@ -3,6 +3,15 @@ package fr.epita.bank.datamodel;
 public class Account {
     Double balance;
     Customer customer;
+    Integer id;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Double getBalance() {
         return balance;
