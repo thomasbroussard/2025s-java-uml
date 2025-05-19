@@ -9,6 +9,7 @@ public class Customer {
     public Customer(int id, String name, String address){
         this.address = address;
         this.name = name;
+        this.id = id;
     }
 
     public String getName() {
