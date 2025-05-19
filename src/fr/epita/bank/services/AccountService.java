@@ -1,9 +1,10 @@
 package fr.epita.bank.services;
 
-import fr.epita.bank.datamodel.Account;
-import fr.epita.bank.datamodel.InvestmentAccount;
-import fr.epita.bank.datamodel.Stock;
-import fr.epita.bank.datamodel.StockOrder;
+import fr.epita.bank.datamodel.*;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AccountService {
 
@@ -47,5 +48,21 @@ public class AccountService {
         double netAmount = grossAmount + commission;
         account.setBalance(account.getBalance() - netAmount);
         return stockOrder;
+    }
+
+
+    public static Map<String, Integer> groupAndCountCustomersPerCity(Map<Integer, Customer> customers) {
+        Collection<Customer> values = customers.values();
+        Map<String,Integer> countPerCity = new HashMap<>();
+        for (Customer customer : values) {
+            String currentAddress = customer.getAddress();
+            Integer i = countPerCity.get(currentAddress);
+            if (i == null) {
+                countPerCity.put(currentAddress, 1);
+            }else{
+                countPerCity.put(currentAddress, ++i);
+            }
+        }
+        return countPerCity;
     }
 }

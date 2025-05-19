@@ -2,9 +2,15 @@ package fr.epita.bank.launcher;
 
 import fr.epita.bank.datamodel.Account;
 import fr.epita.bank.datamodel.Customer;
+import fr.epita.bank.services.AccountService;
 import fr.epita.bank.services.CSVService;
+import org.knowm.xchart.CategoryChart;
+import org.knowm.xchart.CategoryChartBuilder;
+import org.knowm.xchart.Histogram;
+import org.knowm.xchart.SwingWrapper;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,26 +26,26 @@ public class LoadDataFromCSV {
 
         Map<Integer, Customer> customers = CSVService.loadCustomers();
 
-        System.out.println(customers.get(3));
-        Collection<Customer> values = customers.values();
-        Map<String,Integer> countPerCity = new HashMap<>();
-        for (Customer customer : values) {
-            String currentAddress = customer.getAddress();
-            Integer i = countPerCity.get(currentAddress);
-            if (i == null) {
-                countPerCity.put(currentAddress, 1);
-            }else{
-                countPerCity.put(currentAddress, ++i);
-            }
-        }
+        Map<String, Integer> countPerCity = AccountService.groupAndCountCustomersPerCity(customers);
         System.out.println(countPerCity);
+
+        CategoryChart chart = new CategoryChartBuilder()
+                .width(800)
+                .height(600)
+                .title("chart")
+                .xAxisTitle("Mean")
+                .yAxisTitle("Count")
+                .build();
+
+        chart.addSeries("principal", new ArrayList<>(countPerCity.keySet()), new ArrayList<>(countPerCity.values()));
+
+        new SwingWrapper(chart).displayChart();
 
         Map<Integer, Account> accounts = CSVService.loadAccounts(customers);
 
 
 
-
-
     }
+
 
 }
