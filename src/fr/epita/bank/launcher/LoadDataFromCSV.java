@@ -1,6 +1,7 @@
 package fr.epita.bank.launcher;
 
 import fr.epita.bank.datamodel.Account;
+import fr.epita.bank.datamodel.Customer;
 import fr.epita.bank.datamodel.InvestmentAccount;
 import fr.epita.bank.datamodel.SavingsAccount;
 
@@ -20,6 +21,8 @@ public class LoadDataFromCSV {
         // for instance: account 1 is linked to customer 1 account1.setCustomer(customer1)
         //3. display the whole graph of data (HARD)
 
+
+        Map<Integer, Customer> customers = new LinkedHashMap<>();
         List<String> lines = Files.readAllLines(Path.of("accounts.csv"));
         lines.remove(0);
         Map<Integer, Account> accounts = new LinkedHashMap<>();
@@ -36,6 +39,7 @@ public class LoadDataFromCSV {
             }
 
             int customer_id = Integer.parseInt(lineParts[4]);
+            Customer customer = customers.get(customer_id);
             if ("savings".equals(type)){
                 SavingsAccount account = new SavingsAccount(id, amount, null, interest_rate);
                 accounts.put(id,account);
