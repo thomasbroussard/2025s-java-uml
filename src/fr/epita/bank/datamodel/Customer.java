@@ -29,6 +29,10 @@ public class Customer {
         this.address = address;
     }
 
+    public int getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +

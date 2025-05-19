@@ -4,6 +4,7 @@ import fr.epita.bank.datamodel.Account;
 import fr.epita.bank.datamodel.Customer;
 import fr.epita.bank.datamodel.InvestmentAccount;
 import fr.epita.bank.datamodel.SavingsAccount;
+import fr.epita.bank.services.CSVService;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -22,7 +23,8 @@ public class LoadDataFromCSV {
         //3. display the whole graph of data (HARD)
 
 
-        Map<Integer, Customer> customers = new LinkedHashMap<>();
+        Map<Integer, Customer> customers = CSVService.loadCustomers();
+
         List<String> lines = Files.readAllLines(Path.of("accounts.csv"));
         lines.remove(0);
         Map<Integer, Account> accounts = new LinkedHashMap<>();
@@ -41,10 +43,10 @@ public class LoadDataFromCSV {
             int customer_id = Integer.parseInt(lineParts[4]);
             Customer customer = customers.get(customer_id);
             if ("savings".equals(type)){
-                SavingsAccount account = new SavingsAccount(id, amount, null, interest_rate);
+                SavingsAccount account = new SavingsAccount(id, amount, customer, interest_rate);
                 accounts.put(id,account);
             } else if ("investment".equals(type)){
-                InvestmentAccount account = new InvestmentAccount(id, amount, null);
+                InvestmentAccount account = new InvestmentAccount(id, amount, customer);
                 accounts.put(id, account);
             } else {
                 System.out.printf("problem, unrecognized type %s\n", type);
