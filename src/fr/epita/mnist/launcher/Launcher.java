@@ -7,9 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Launcher {
 
@@ -23,6 +21,7 @@ public class Launcher {
         List<String> lines = Files.readAllLines(Path.of("mnist_test.csv"));
         lines.remove(0);
         List<Double[]> data = readData(lines);
+        System.out.println(data.size());
         List<Image> images =getImages(data);
 
         Image image = images.get(0);
@@ -30,14 +29,20 @@ public class Launcher {
         showMatrix(image);
         System.out.println(image.getLabel()); // label display
 
+        System.out.println(images.size());
+        Map<Double, Integer> countByLabel = new HashMap<>();
+        for(Image img : images) {
+            Integer i = countByLabel.get(img.getLabel());
+            if(i == null) {
+                countByLabel.put(img.getLabel(), 1);
+            }else{
+                countByLabel.put(img.getLabel(), i+1);
+            }
+        }
+        System.out.println(countByLabel);
 
 
-        /*
-        ooooooooo
-        ooo
-        ooo
-        ooo
-         */
+
 
     }
 
@@ -66,11 +71,11 @@ public class Launcher {
             for (int i = 0; i < 28; i++) {
                 for (int j = 0; j < 28; j++) {
                     imageData[i][j] = doubles[1 + i * 28 + j];
-                    Double label = doubles[0];
-                    Image image = new Image(label, imageData);
-                    images.add(image);
                 }
             }
+            Double label = doubles[0];
+            Image image = new Image(label, imageData);
+            images.add(image);
         }
         return images;
     }
