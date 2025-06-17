@@ -83,7 +83,7 @@ public class Launcher {
     private static void showMatrix(Image image) {
         for (int i = 0; i < 28; i++) {
             for (int j = 0; j < 28; j++) {
-                if (image.getData()[i][j] > 100.0) {
+                if (image.getData()[i][j] > 100.0) {d
                     System.out.print( "xx");
                 }else  {
                     System.out.print( "..");
